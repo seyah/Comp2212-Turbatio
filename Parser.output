@@ -1,0 +1,1287 @@
+   0  $accept : %entry% $end
+
+   1  main : ENTER LBRACE expr RBRACE EXIT
+
+   2  expr : INT
+   3       | VAR
+   4       | TRUE
+   5       | FALSE
+   6       | LPAREN expr RPAREN
+   7       | expr PLUS expr
+   8       | expr MINUS expr
+   9       | expr MULTIPLY expr
+  10       | expr DIVIDE expr
+  11       | expr POWER expr
+  12       | expr MOD expr
+  13       | expr EQ expr
+  14       | expr NEQ expr
+  15       | expr LE expr
+  16       | expr LQ expr
+  17       | expr GE expr
+  18       | expr GQ expr
+  19       | expr AND expr
+  20       | expr OR expr
+  21       | IF LPAREN expr RPAREN THEN expr ELSE expr
+
+  22  %entry% : '\001' main
+
+state 0
+	$accept : . %entry% $end  (0)
+
+	'\001'  shift 1
+	.  error
+
+	%entry%  goto 2
+
+
+state 1
+	%entry% : '\001' . main  (22)
+
+	ENTER  shift 3
+	.  error
+
+	main  goto 4
+
+
+state 2
+	$accept : %entry% . $end  (0)
+
+	$end  accept
+
+
+state 3
+	main : ENTER . LBRACE expr RBRACE EXIT  (1)
+
+	LBRACE  shift 5
+	.  error
+
+
+state 4
+	%entry% : '\001' main .  (22)
+
+	.  reduce 22
+
+
+state 5
+	main : ENTER LBRACE . expr RBRACE EXIT  (1)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 12
+
+
+state 6
+	expr : INT .  (2)
+
+	.  reduce 2
+
+
+state 7
+	expr : VAR .  (3)
+
+	.  reduce 3
+
+
+state 8
+	expr : TRUE .  (4)
+
+	.  reduce 4
+
+
+state 9
+	expr : FALSE .  (5)
+
+	.  reduce 5
+
+
+state 10
+	expr : LPAREN . expr RPAREN  (6)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 13
+
+
+state 11
+	expr : IF . LPAREN expr RPAREN THEN expr ELSE expr  (21)
+
+	LPAREN  shift 14
+	.  error
+
+
+state 12
+	main : ENTER LBRACE expr . RBRACE EXIT  (1)
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RBRACE  shift 29
+	.  error
+
+
+state 13
+	expr : LPAREN expr . RPAREN  (6)
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  shift 30
+	.  error
+
+
+state 14
+	expr : IF LPAREN . expr RPAREN THEN expr ELSE expr  (21)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 31
+
+
+state 15
+	expr : expr PLUS . expr  (7)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 32
+
+
+state 16
+	expr : expr MINUS . expr  (8)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 33
+
+
+state 17
+	expr : expr MULTIPLY . expr  (9)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 34
+
+
+state 18
+	expr : expr DIVIDE . expr  (10)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 35
+
+
+state 19
+	expr : expr POWER . expr  (11)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 36
+
+
+state 20
+	expr : expr MOD . expr  (12)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 37
+
+
+state 21
+	expr : expr EQ . expr  (13)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 38
+
+
+state 22
+	expr : expr NEQ . expr  (14)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 39
+
+
+state 23
+	expr : expr LE . expr  (15)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 40
+
+
+state 24
+	expr : expr LQ . expr  (16)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 41
+
+
+state 25
+	expr : expr GE . expr  (17)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 42
+
+
+state 26
+	expr : expr GQ . expr  (18)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 43
+
+
+state 27
+	expr : expr AND . expr  (19)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 44
+
+
+state 28
+	expr : expr OR . expr  (20)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 45
+
+
+state 29
+	main : ENTER LBRACE expr RBRACE . EXIT  (1)
+
+	EXIT  shift 46
+	.  error
+
+
+state 30
+	expr : LPAREN expr RPAREN .  (6)
+
+	.  reduce 6
+
+
+state 31
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+	expr : IF LPAREN expr . RPAREN THEN expr ELSE expr  (21)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  shift 47
+	.  error
+
+
+32: shift/reduce conflict (shift 18, reduce 7) on DIVIDE
+32: shift/reduce conflict (shift 19, reduce 7) on POWER
+32: shift/reduce conflict (shift 20, reduce 7) on MOD
+32: shift/reduce conflict (shift 21, reduce 7) on EQ
+32: shift/reduce conflict (shift 22, reduce 7) on NEQ
+32: shift/reduce conflict (shift 23, reduce 7) on LE
+32: shift/reduce conflict (shift 24, reduce 7) on LQ
+32: shift/reduce conflict (shift 25, reduce 7) on GE
+32: shift/reduce conflict (shift 26, reduce 7) on GQ
+32: shift/reduce conflict (shift 27, reduce 7) on AND
+32: shift/reduce conflict (shift 28, reduce 7) on OR
+state 32
+	expr : expr . PLUS expr  (7)
+	expr : expr PLUS expr .  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	PLUS  reduce 7
+	MINUS  reduce 7
+	RPAREN  reduce 7
+	ELSE  reduce 7
+	RBRACE  reduce 7
+
+
+33: shift/reduce conflict (shift 18, reduce 8) on DIVIDE
+33: shift/reduce conflict (shift 19, reduce 8) on POWER
+33: shift/reduce conflict (shift 20, reduce 8) on MOD
+33: shift/reduce conflict (shift 21, reduce 8) on EQ
+33: shift/reduce conflict (shift 22, reduce 8) on NEQ
+33: shift/reduce conflict (shift 23, reduce 8) on LE
+33: shift/reduce conflict (shift 24, reduce 8) on LQ
+33: shift/reduce conflict (shift 25, reduce 8) on GE
+33: shift/reduce conflict (shift 26, reduce 8) on GQ
+33: shift/reduce conflict (shift 27, reduce 8) on AND
+33: shift/reduce conflict (shift 28, reduce 8) on OR
+state 33
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr MINUS expr .  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	PLUS  reduce 8
+	MINUS  reduce 8
+	RPAREN  reduce 8
+	ELSE  reduce 8
+	RBRACE  reduce 8
+
+
+34: shift/reduce conflict (shift 18, reduce 9) on DIVIDE
+34: shift/reduce conflict (shift 19, reduce 9) on POWER
+34: shift/reduce conflict (shift 20, reduce 9) on MOD
+34: shift/reduce conflict (shift 21, reduce 9) on EQ
+34: shift/reduce conflict (shift 22, reduce 9) on NEQ
+34: shift/reduce conflict (shift 23, reduce 9) on LE
+34: shift/reduce conflict (shift 24, reduce 9) on LQ
+34: shift/reduce conflict (shift 25, reduce 9) on GE
+34: shift/reduce conflict (shift 26, reduce 9) on GQ
+34: shift/reduce conflict (shift 27, reduce 9) on AND
+34: shift/reduce conflict (shift 28, reduce 9) on OR
+state 34
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr MULTIPLY expr .  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	PLUS  reduce 9
+	MINUS  reduce 9
+	MULTIPLY  reduce 9
+	RPAREN  reduce 9
+	ELSE  reduce 9
+	RBRACE  reduce 9
+
+
+35: shift/reduce conflict (shift 15, reduce 10) on PLUS
+35: shift/reduce conflict (shift 16, reduce 10) on MINUS
+35: shift/reduce conflict (shift 17, reduce 10) on MULTIPLY
+35: shift/reduce conflict (shift 18, reduce 10) on DIVIDE
+35: shift/reduce conflict (shift 19, reduce 10) on POWER
+35: shift/reduce conflict (shift 20, reduce 10) on MOD
+35: shift/reduce conflict (shift 21, reduce 10) on EQ
+35: shift/reduce conflict (shift 22, reduce 10) on NEQ
+35: shift/reduce conflict (shift 23, reduce 10) on LE
+35: shift/reduce conflict (shift 24, reduce 10) on LQ
+35: shift/reduce conflict (shift 25, reduce 10) on GE
+35: shift/reduce conflict (shift 26, reduce 10) on GQ
+35: shift/reduce conflict (shift 27, reduce 10) on AND
+35: shift/reduce conflict (shift 28, reduce 10) on OR
+state 35
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr DIVIDE expr .  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 10
+	ELSE  reduce 10
+	RBRACE  reduce 10
+
+
+36: shift/reduce conflict (shift 15, reduce 11) on PLUS
+36: shift/reduce conflict (shift 16, reduce 11) on MINUS
+36: shift/reduce conflict (shift 17, reduce 11) on MULTIPLY
+36: shift/reduce conflict (shift 18, reduce 11) on DIVIDE
+36: shift/reduce conflict (shift 19, reduce 11) on POWER
+36: shift/reduce conflict (shift 20, reduce 11) on MOD
+36: shift/reduce conflict (shift 21, reduce 11) on EQ
+36: shift/reduce conflict (shift 22, reduce 11) on NEQ
+36: shift/reduce conflict (shift 23, reduce 11) on LE
+36: shift/reduce conflict (shift 24, reduce 11) on LQ
+36: shift/reduce conflict (shift 25, reduce 11) on GE
+36: shift/reduce conflict (shift 26, reduce 11) on GQ
+36: shift/reduce conflict (shift 27, reduce 11) on AND
+36: shift/reduce conflict (shift 28, reduce 11) on OR
+state 36
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr POWER expr .  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 11
+	ELSE  reduce 11
+	RBRACE  reduce 11
+
+
+37: shift/reduce conflict (shift 15, reduce 12) on PLUS
+37: shift/reduce conflict (shift 16, reduce 12) on MINUS
+37: shift/reduce conflict (shift 17, reduce 12) on MULTIPLY
+37: shift/reduce conflict (shift 18, reduce 12) on DIVIDE
+37: shift/reduce conflict (shift 19, reduce 12) on POWER
+37: shift/reduce conflict (shift 20, reduce 12) on MOD
+37: shift/reduce conflict (shift 21, reduce 12) on EQ
+37: shift/reduce conflict (shift 22, reduce 12) on NEQ
+37: shift/reduce conflict (shift 23, reduce 12) on LE
+37: shift/reduce conflict (shift 24, reduce 12) on LQ
+37: shift/reduce conflict (shift 25, reduce 12) on GE
+37: shift/reduce conflict (shift 26, reduce 12) on GQ
+37: shift/reduce conflict (shift 27, reduce 12) on AND
+37: shift/reduce conflict (shift 28, reduce 12) on OR
+state 37
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr MOD expr .  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 12
+	ELSE  reduce 12
+	RBRACE  reduce 12
+
+
+38: shift/reduce conflict (shift 15, reduce 13) on PLUS
+38: shift/reduce conflict (shift 16, reduce 13) on MINUS
+38: shift/reduce conflict (shift 17, reduce 13) on MULTIPLY
+38: shift/reduce conflict (shift 18, reduce 13) on DIVIDE
+38: shift/reduce conflict (shift 19, reduce 13) on POWER
+38: shift/reduce conflict (shift 20, reduce 13) on MOD
+38: shift/reduce conflict (shift 21, reduce 13) on EQ
+38: shift/reduce conflict (shift 22, reduce 13) on NEQ
+38: shift/reduce conflict (shift 23, reduce 13) on LE
+38: shift/reduce conflict (shift 24, reduce 13) on LQ
+38: shift/reduce conflict (shift 25, reduce 13) on GE
+38: shift/reduce conflict (shift 26, reduce 13) on GQ
+38: shift/reduce conflict (shift 27, reduce 13) on AND
+38: shift/reduce conflict (shift 28, reduce 13) on OR
+state 38
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr EQ expr .  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 13
+	ELSE  reduce 13
+	RBRACE  reduce 13
+
+
+39: shift/reduce conflict (shift 15, reduce 14) on PLUS
+39: shift/reduce conflict (shift 16, reduce 14) on MINUS
+39: shift/reduce conflict (shift 17, reduce 14) on MULTIPLY
+39: shift/reduce conflict (shift 18, reduce 14) on DIVIDE
+39: shift/reduce conflict (shift 19, reduce 14) on POWER
+39: shift/reduce conflict (shift 20, reduce 14) on MOD
+39: shift/reduce conflict (shift 21, reduce 14) on EQ
+39: shift/reduce conflict (shift 22, reduce 14) on NEQ
+39: shift/reduce conflict (shift 23, reduce 14) on LE
+39: shift/reduce conflict (shift 24, reduce 14) on LQ
+39: shift/reduce conflict (shift 25, reduce 14) on GE
+39: shift/reduce conflict (shift 26, reduce 14) on GQ
+39: shift/reduce conflict (shift 27, reduce 14) on AND
+39: shift/reduce conflict (shift 28, reduce 14) on OR
+state 39
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr NEQ expr .  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 14
+	ELSE  reduce 14
+	RBRACE  reduce 14
+
+
+40: shift/reduce conflict (shift 15, reduce 15) on PLUS
+40: shift/reduce conflict (shift 16, reduce 15) on MINUS
+40: shift/reduce conflict (shift 17, reduce 15) on MULTIPLY
+40: shift/reduce conflict (shift 18, reduce 15) on DIVIDE
+40: shift/reduce conflict (shift 19, reduce 15) on POWER
+40: shift/reduce conflict (shift 20, reduce 15) on MOD
+40: shift/reduce conflict (shift 21, reduce 15) on EQ
+40: shift/reduce conflict (shift 22, reduce 15) on NEQ
+40: shift/reduce conflict (shift 23, reduce 15) on LE
+40: shift/reduce conflict (shift 24, reduce 15) on LQ
+40: shift/reduce conflict (shift 25, reduce 15) on GE
+40: shift/reduce conflict (shift 26, reduce 15) on GQ
+40: shift/reduce conflict (shift 27, reduce 15) on AND
+40: shift/reduce conflict (shift 28, reduce 15) on OR
+state 40
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr LE expr .  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 15
+	ELSE  reduce 15
+	RBRACE  reduce 15
+
+
+41: shift/reduce conflict (shift 15, reduce 16) on PLUS
+41: shift/reduce conflict (shift 16, reduce 16) on MINUS
+41: shift/reduce conflict (shift 17, reduce 16) on MULTIPLY
+41: shift/reduce conflict (shift 18, reduce 16) on DIVIDE
+41: shift/reduce conflict (shift 19, reduce 16) on POWER
+41: shift/reduce conflict (shift 20, reduce 16) on MOD
+41: shift/reduce conflict (shift 21, reduce 16) on EQ
+41: shift/reduce conflict (shift 22, reduce 16) on NEQ
+41: shift/reduce conflict (shift 23, reduce 16) on LE
+41: shift/reduce conflict (shift 24, reduce 16) on LQ
+41: shift/reduce conflict (shift 25, reduce 16) on GE
+41: shift/reduce conflict (shift 26, reduce 16) on GQ
+41: shift/reduce conflict (shift 27, reduce 16) on AND
+41: shift/reduce conflict (shift 28, reduce 16) on OR
+state 41
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr LQ expr .  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 16
+	ELSE  reduce 16
+	RBRACE  reduce 16
+
+
+42: shift/reduce conflict (shift 15, reduce 17) on PLUS
+42: shift/reduce conflict (shift 16, reduce 17) on MINUS
+42: shift/reduce conflict (shift 17, reduce 17) on MULTIPLY
+42: shift/reduce conflict (shift 18, reduce 17) on DIVIDE
+42: shift/reduce conflict (shift 19, reduce 17) on POWER
+42: shift/reduce conflict (shift 20, reduce 17) on MOD
+42: shift/reduce conflict (shift 21, reduce 17) on EQ
+42: shift/reduce conflict (shift 22, reduce 17) on NEQ
+42: shift/reduce conflict (shift 23, reduce 17) on LE
+42: shift/reduce conflict (shift 24, reduce 17) on LQ
+42: shift/reduce conflict (shift 25, reduce 17) on GE
+42: shift/reduce conflict (shift 26, reduce 17) on GQ
+42: shift/reduce conflict (shift 27, reduce 17) on AND
+42: shift/reduce conflict (shift 28, reduce 17) on OR
+state 42
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr GE expr .  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 17
+	ELSE  reduce 17
+	RBRACE  reduce 17
+
+
+43: shift/reduce conflict (shift 15, reduce 18) on PLUS
+43: shift/reduce conflict (shift 16, reduce 18) on MINUS
+43: shift/reduce conflict (shift 17, reduce 18) on MULTIPLY
+43: shift/reduce conflict (shift 18, reduce 18) on DIVIDE
+43: shift/reduce conflict (shift 19, reduce 18) on POWER
+43: shift/reduce conflict (shift 20, reduce 18) on MOD
+43: shift/reduce conflict (shift 21, reduce 18) on EQ
+43: shift/reduce conflict (shift 22, reduce 18) on NEQ
+43: shift/reduce conflict (shift 23, reduce 18) on LE
+43: shift/reduce conflict (shift 24, reduce 18) on LQ
+43: shift/reduce conflict (shift 25, reduce 18) on GE
+43: shift/reduce conflict (shift 26, reduce 18) on GQ
+43: shift/reduce conflict (shift 27, reduce 18) on AND
+43: shift/reduce conflict (shift 28, reduce 18) on OR
+state 43
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr GQ expr .  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 18
+	ELSE  reduce 18
+	RBRACE  reduce 18
+
+
+44: shift/reduce conflict (shift 15, reduce 19) on PLUS
+44: shift/reduce conflict (shift 16, reduce 19) on MINUS
+44: shift/reduce conflict (shift 17, reduce 19) on MULTIPLY
+44: shift/reduce conflict (shift 18, reduce 19) on DIVIDE
+44: shift/reduce conflict (shift 19, reduce 19) on POWER
+44: shift/reduce conflict (shift 20, reduce 19) on MOD
+44: shift/reduce conflict (shift 21, reduce 19) on EQ
+44: shift/reduce conflict (shift 22, reduce 19) on NEQ
+44: shift/reduce conflict (shift 23, reduce 19) on LE
+44: shift/reduce conflict (shift 24, reduce 19) on LQ
+44: shift/reduce conflict (shift 25, reduce 19) on GE
+44: shift/reduce conflict (shift 26, reduce 19) on GQ
+44: shift/reduce conflict (shift 27, reduce 19) on AND
+44: shift/reduce conflict (shift 28, reduce 19) on OR
+state 44
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr AND expr .  (19)
+	expr : expr . OR expr  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 19
+	ELSE  reduce 19
+	RBRACE  reduce 19
+
+
+45: shift/reduce conflict (shift 15, reduce 20) on PLUS
+45: shift/reduce conflict (shift 16, reduce 20) on MINUS
+45: shift/reduce conflict (shift 17, reduce 20) on MULTIPLY
+45: shift/reduce conflict (shift 18, reduce 20) on DIVIDE
+45: shift/reduce conflict (shift 19, reduce 20) on POWER
+45: shift/reduce conflict (shift 20, reduce 20) on MOD
+45: shift/reduce conflict (shift 21, reduce 20) on EQ
+45: shift/reduce conflict (shift 22, reduce 20) on NEQ
+45: shift/reduce conflict (shift 23, reduce 20) on LE
+45: shift/reduce conflict (shift 24, reduce 20) on LQ
+45: shift/reduce conflict (shift 25, reduce 20) on GE
+45: shift/reduce conflict (shift 26, reduce 20) on GQ
+45: shift/reduce conflict (shift 27, reduce 20) on AND
+45: shift/reduce conflict (shift 28, reduce 20) on OR
+state 45
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+	expr : expr OR expr .  (20)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 20
+	ELSE  reduce 20
+	RBRACE  reduce 20
+
+
+state 46
+	main : ENTER LBRACE expr RBRACE EXIT .  (1)
+
+	.  reduce 1
+
+
+state 47
+	expr : IF LPAREN expr RPAREN . THEN expr ELSE expr  (21)
+
+	THEN  shift 48
+	.  error
+
+
+state 48
+	expr : IF LPAREN expr RPAREN THEN . expr ELSE expr  (21)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 49
+
+
+state 49
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+	expr : IF LPAREN expr RPAREN THEN expr . ELSE expr  (21)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	ELSE  shift 50
+	.  error
+
+
+state 50
+	expr : IF LPAREN expr RPAREN THEN expr ELSE . expr  (21)
+
+	INT  shift 6
+	VAR  shift 7
+	TRUE  shift 8
+	FALSE  shift 9
+	LPAREN  shift 10
+	IF  shift 11
+	.  error
+
+	expr  goto 51
+
+
+51: shift/reduce conflict (shift 15, reduce 21) on PLUS
+51: shift/reduce conflict (shift 16, reduce 21) on MINUS
+51: shift/reduce conflict (shift 17, reduce 21) on MULTIPLY
+51: shift/reduce conflict (shift 18, reduce 21) on DIVIDE
+51: shift/reduce conflict (shift 19, reduce 21) on POWER
+51: shift/reduce conflict (shift 20, reduce 21) on MOD
+51: shift/reduce conflict (shift 21, reduce 21) on EQ
+51: shift/reduce conflict (shift 22, reduce 21) on NEQ
+51: shift/reduce conflict (shift 23, reduce 21) on LE
+51: shift/reduce conflict (shift 24, reduce 21) on LQ
+51: shift/reduce conflict (shift 25, reduce 21) on GE
+51: shift/reduce conflict (shift 26, reduce 21) on GQ
+51: shift/reduce conflict (shift 27, reduce 21) on AND
+51: shift/reduce conflict (shift 28, reduce 21) on OR
+state 51
+	expr : expr . PLUS expr  (7)
+	expr : expr . MINUS expr  (8)
+	expr : expr . MULTIPLY expr  (9)
+	expr : expr . DIVIDE expr  (10)
+	expr : expr . POWER expr  (11)
+	expr : expr . MOD expr  (12)
+	expr : expr . EQ expr  (13)
+	expr : expr . NEQ expr  (14)
+	expr : expr . LE expr  (15)
+	expr : expr . LQ expr  (16)
+	expr : expr . GE expr  (17)
+	expr : expr . GQ expr  (18)
+	expr : expr . AND expr  (19)
+	expr : expr . OR expr  (20)
+	expr : IF LPAREN expr RPAREN THEN expr ELSE expr .  (21)
+
+	PLUS  shift 15
+	MINUS  shift 16
+	MULTIPLY  shift 17
+	DIVIDE  shift 18
+	POWER  shift 19
+	MOD  shift 20
+	EQ  shift 21
+	NEQ  shift 22
+	LE  shift 23
+	LQ  shift 24
+	GE  shift 25
+	GQ  shift 26
+	AND  shift 27
+	OR  shift 28
+	RPAREN  reduce 21
+	ELSE  reduce 21
+	RBRACE  reduce 21
+
+
+State 32 contains 11 shift/reduce conflicts.
+State 33 contains 11 shift/reduce conflicts.
+State 34 contains 11 shift/reduce conflicts.
+State 35 contains 14 shift/reduce conflicts.
+State 36 contains 14 shift/reduce conflicts.
+State 37 contains 14 shift/reduce conflicts.
+State 38 contains 14 shift/reduce conflicts.
+State 39 contains 14 shift/reduce conflicts.
+State 40 contains 14 shift/reduce conflicts.
+State 41 contains 14 shift/reduce conflicts.
+State 42 contains 14 shift/reduce conflicts.
+State 43 contains 14 shift/reduce conflicts.
+State 44 contains 14 shift/reduce conflicts.
+State 45 contains 14 shift/reduce conflicts.
+State 51 contains 14 shift/reduce conflicts.
+
+
+36 terminals, 4 nonterminals
+23 grammar rules, 52 states

@@ -5,24 +5,20 @@
 }
 
 rule token = parse
-    [' ' '\t'] { main lexbuf }
+  | [' ' '\t'] { token lexbuf }
   | ['\n'] { EOL }
   | ['0'-'9']+ as lxm {INT(int_of_string lxm) }
   | '+' { PLUS }
   | '-' { MINUS }
-  | '*' { TIMES }
-  | '/' { DIV }
+  | '*' { MULTIPLY }
+  | '/' { DIVIDE }
   | '^' { POWER }
   | '%' { MOD }
-  | ':' { COLON }
   | '(' { LPAREN }
   | ')' { RPAREN }
   | "if" { IF }
   | "then" { THEN }
   | "else" { ELSE }
-  | "enter" { ENTER }
-  | "exit" { EXIT }
-  | "process" { PROCESS }
   | "while" { WHILE }
   | '<'       { LE }
   | "<="      { LQ }
@@ -31,8 +27,10 @@ rule token = parse
   | '>'       { GE }
   | ">="      { GQ }
   | "=="      { EQ }
-  | "!="      { NEQU }
+  | "!="      { NEQ }
   | '{' { LBRACE }
   | '}' { RBRACE }
-  | ['a'-'z''A'-'Z''_']['a'-'z''A'-'Z''_''0'-'9']* as ident { STRING( ident ) }
+  | "enter" { ENTER }
+  | "exit" { EXIT }
+  | ['a'-'z''A'-'Z']['a'-'z''A'-'Z''_''0'-'9']* as id { VAR( id ) }
   | eof { raise Eof }

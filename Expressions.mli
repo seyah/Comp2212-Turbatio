@@ -1,5 +1,4 @@
 type name = string
-
 type expr =
   | Var of name
   | Int of int

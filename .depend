@@ -1,0 +1,10 @@
+Expressions.cmi :
+Parser.cmi : Expressions.cmi
+Expressions.cmo : Expressions.cmi
+Expressions.cmx : Expressions.cmi
+Lexer.cmo : Parser.cmi
+Lexer.cmx : Parser.cmx
+main.cmo : Expressions.cmi Parser.cmi Lexer.cmo
+main.cmx : Expressions.cmx Parser.cmx Lexer.cmx
+Parser.cmo : Expressions.cmi Parser.cmi
+Parser.cmx : Expressions.cmx Parser.cmi
