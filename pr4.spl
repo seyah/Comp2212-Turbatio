@@ -1,0 +1,6 @@
+tally = 0;
+loopstream {
+  tally = tally + lst(0);
+	print(tally);
+	printnewline;
+}

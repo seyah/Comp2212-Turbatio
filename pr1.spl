@@ -1,0 +1,8 @@
+if(pipelength>0){
+  print(0);
+  printnewline;
+}
+loopstream {
+	print(lst(0));
+	printnewline;
+}

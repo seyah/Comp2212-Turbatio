@@ -1,21 +1,33 @@
-type name = string
+type variableType = TurbatioInt | TurbatioBoolean
 
 type expr =
-  | Var of name
-  | Int of int
-  | Plus of expr * expr
-  | Minus of expr * expr
-  | Multiply of expr * expr
-  | Divide of expr * expr
-  | Power of expr * expr
-  | Mod of expr * expr
-  | Boolean of bool
-  | Eq of expr * expr
-  | Neq of expr * expr
-  | Le of expr * expr
-  | Lq of expr * expr
-  | Ge of expr * expr
-  | Gq of expr * expr
-  | And of expr * expr
-  | Or of expr * expr
-  | If of expr * expr * expr
+  | TurVar of string
+  | TurInt of int
+  | TurBoolean of bool
+  | TurPlus of expr * expr
+  | TurMinus of expr * expr
+  | TurMultiply of expr * expr
+  | TurDivide of expr * expr
+  | TurMod of expr * expr
+  | TurNegate of expr
+  | TurEq of expr * expr
+  | TurNeq of expr * expr
+  | TurLe of expr * expr
+  | TurLq of expr * expr
+  | TurGe of expr * expr
+  | TurGq of expr * expr
+  | TurAnd of expr * expr
+  | TurOr of expr * expr
+  | TurLst of expr
+  | TurPrint of expr
+  | TurResetPipe of expr
+  | TurPipeLength
+  | TurPipeCount
+  | TurPrintNl
+  | TurReadNl
+  | TurWhile of expr * expr
+  | TurLoopStream of expr
+  | TurIf of expr * expr
+  | TurIfElse of expr * expr * expr
+  | TurSeq of expr * expr
+  | TurAssign of string * expr

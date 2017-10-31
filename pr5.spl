@@ -1,0 +1,25 @@
+out = 0;
+cur = 1;
+oldn = 1;
+curn = 1;
+newn = 0;
+val = 0;
+while(out < pipelength){
+  resetpipeat(0);
+  oldn = 1;
+  curn = 1;
+  newn = 0;
+  val = 0;
+  proc = 0;
+  while(proc <= out){
+    readnextline;
+    newn = curn + oldn;
+    oldn = curn;
+    curn = newn;
+    val = val + newn*lst(0);
+    proc = proc + 1;
+  }
+  print(val);
+  printnewline;
+  out = out + 1;
+}

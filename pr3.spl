@@ -1,0 +1,4 @@
+loopstream {
+	print(lst(0)+(3*lst(1)));
+	printnewline;
+}
